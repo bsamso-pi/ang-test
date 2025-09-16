@@ -8,10 +8,16 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
 
 jobs:
   build:
-
+    name: Test
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,9 +26,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: bsamso-pi/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: bsamso-pi/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
